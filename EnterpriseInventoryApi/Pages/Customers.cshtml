@@ -1,0 +1,120 @@
+﻿@page
+@model EnterpriseInventoryApi.Pages.CustomersModel
+@inject JsonLocalizer L
+@{
+    ViewData["Title"] = "Management Clienți";
+}
+
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/customers.css" asp-append-version="true" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="app-wrapper">
+    @await Html.PartialAsync("~/Pages/Shared/_Sidebar.cshtml")
+
+    <div class="main-content">
+        
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <div>
+                <h1 class="h2 mb-1">@L["CustomersTitle"]</h1>
+                <p class="text-muted mb-0">@L["CustomersSubtitle"]</p>
+            </div>
+            <button class="btn btn-warm-primary" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+                <i class="bi bi-plus-lg me-2"></i> @L["AddCompany"]
+            </button>
+        </div>
+
+        <div class="warm-card p-3 mb-4">
+            <form method="get" class="row g-3 align-items-center">
+                <div class="col-md-10">
+                    <div class="warm-search">
+                        <i class="bi bi-search text-muted ms-2 me-2"></i>
+                        <input type="text" name="SearchQuery" value="@Model.SearchQuery" placeholder="@L["SearchPlaceholder"]">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-warm-primary w-100">@L["FilterButton"]</button>
+                </div>
+            </form>
+        </div>
+
+        @if (!Model.Customers.Any())
+        {
+            <div class="warm-card text-center py-5">
+                <i class="bi bi-inbox display-4 text-muted mb-3"></i>
+                <h5 class="text-muted">@L["NoCustomersFound"]</h5>
+            </div>
+        }
+        else
+        {
+            <div class="bento-grid">
+                @foreach (var customer in Model.Customers)
+                {
+                    <div class="bento-customer-card">
+                        <div class="d-flex justify-content-between align-items-start mb-4">
+                            <div class="d-flex align-items-center">
+                                <div class="customer-avatar me-3">
+                                    @(!string.IsNullOrEmpty(customer.CompanyName) ? customer.CompanyName.Substring(0, 1).ToUpper() : "C")
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold text-dark mb-1">@customer.CompanyName</h5>
+                                    <span class="badge bg-light text-secondary border px-2 py-1 font-monospace fs-8">ID: #@customer.Id</span>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-light border text-secondary rounded-circle" style="width: 32px; height: 32px;" data-bs-toggle="dropdown">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                                <ul class="dropdown-menu shadow-sm border-0">
+                                    <li><a class="dropdown-item py-2" href="#"><i class="bi bi-pencil me-2 text-primary"></i>@L["Edit"]</a></li>
+                                    <li><a class="dropdown-item py-2 text-danger" href="#"><i class="bi bi-trash me-2"></i>@L["Delete"]</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="d-flex align-items-center text-muted mb-2 small">
+                                <i class="bi bi-envelope text-dark me-2"></i>
+                                <a href="mailto:@customer.Email" class="text-decoration-none text-dark fw-medium text-truncate">@customer.Email</a>
+                            </div>
+                            <div class="d-flex align-items-start text-muted small">
+                                <i class="bi bi-geo-alt text-dark me-2 mt-1"></i>
+                                <span class="text-truncate" style="max-width: 270px;">@customer.Address</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top border-light">
+                            <span class="badge bg-warning bg-opacity-10 text-dark fw-semibold px-3 py-2 rounded-pill">
+                                <i class="bi bi-receipt me-1 text-warning"></i> @customer.Orders.Count @L["OrdersCount"]
+                            </span>
+                            <button class="btn btn-sm btn-outline-dark rounded-pill px-3 fw-medium">@L["Options"]</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        @if (Model.TotalPages > 1)
+        {
+            <nav aria-label="Navigare pagini" class="mt-5">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" href="/Customers?CurrentPage=@(Model.CurrentPage - 1)&SearchQuery=@Model.SearchQuery">@L["PaginationPrevious"]</a>
+                    </li>
+
+                    @for (var i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                            <a class="page-link" href="/Customers?CurrentPage=@i&SearchQuery=@Model.SearchQuery">@i</a>
+                        </li>
+                    }
+
+                    <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                        <a class="page-link" href="/Customers?CurrentPage=@(Model.CurrentPage + 1)&SearchQuery=@Model.SearchQuery">@L["PaginationNext"]</a>
+                    </li>
+                </ul>
+            </nav>
+        }
+    </div>
+</div>

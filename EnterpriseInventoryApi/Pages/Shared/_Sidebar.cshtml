@@ -1,0 +1,72 @@
+﻿@{
+    var currentPath = ViewContext.HttpContext.Request.Path;
+}
+
+<link rel="stylesheet" href="~/css/sidebar.css" asp-append-version="true" />
+
+<div class="sidebar d-flex flex-column flex-shrink-0 p-3 bg-white shadow-sm">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <span class="fs-4 fw-bold text-primary">📦 EnterpriseInv</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item mb-1">
+            <a href="/Index" class="nav-link @(currentPath.Value?.Equals("/Index", StringComparison.OrdinalIgnoreCase) == true || currentPath.Value?.Equals("/", StringComparison.OrdinalIgnoreCase) == true ? "active" : "text-dark") py-2 px-3 rounded-3" aria-current="page">
+                <i class="bi bi-speedometer2 me-2"></i> @L["MenuDashboard"]
+            </a>
+        </li>
+
+        <li class="nav-item mb-1">
+            <a href="/Products" class="nav-link @(currentPath.Value?.Contains("/Products", StringComparison.OrdinalIgnoreCase) == true ? "active" : "text-dark") py-2 px-3 rounded-3">
+                <i class="bi bi-box-seam me-2"></i> @L["MenuProducts"]
+            </a>
+        </li>
+
+        <li class="nav-item mb-1">
+            <a href="/Warehouses" class="nav-link @(currentPath.Value?.Contains("/Warehouses", StringComparison.OrdinalIgnoreCase) == true ? "active" : "text-dark") py-2 px-3 rounded-3">
+                <i class="bi bi-building me-2"></i> @L["MenuWarehouses"]
+            </a>
+        </li>
+
+        <li class="nav-item mb-1">
+            <a href="/Orders" class="nav-link @(currentPath.Value?.Contains("/Orders", StringComparison.OrdinalIgnoreCase) == true ? "active" : "text-dark") py-2 px-3 rounded-3">
+                <i class="bi bi-cart-check me-2"></i> @L["MenuOrders"]
+            </a>
+        </li>
+
+        <li class="nav-item mb-1">
+            <a href="/Customers" class="nav-link @(currentPath.Value?.Contains("/Customers", StringComparison.OrdinalIgnoreCase) == true ? "active" : "text-dark") py-2 px-3 rounded-3">
+                <i class="bi bi-people me-2"></i> @L["MenuCustomers"]
+            </a>
+        </li>
+    </ul>
+    
+    <hr>
+
+    <div class="d-flex flex-column gap-2 mb-2">
+        <label for="languageSelect" class="form-label text-muted small mb-0">
+            <i class="bi bi-translate me-1"></i> @L["Language"]
+        </label>
+        <select id="languageSelect" class="form-select form-select-sm" onchange="changeLanguage(this.value)">
+            <option value="en" selected="@(L.CurrentCulture == "en")">English (Default)</option>
+            <option value="ro" selected="@(L.CurrentCulture == "ro")">Română</option>
+        </select>
+    </div>
+
+    <hr class="my-2">
+
+    <div class="dropdown">
+        <span class="d-flex align-items-center text-dark text-decoration-none">
+            <strong>Admin ERP</strong>
+        </span>
+    </div>
+</div>
+
+<script>
+    function changeLanguage(lang) {
+        const cookieName = ".AspNetCore.Culture";
+        const cookieValue = `c=${lang}|uic=${lang}`;
+        document.cookie = `${cookieName}=${cookieValue}; path=/; max-age=31536000; SameSite=Lax`;
+        location.reload();
+    }
+</script>

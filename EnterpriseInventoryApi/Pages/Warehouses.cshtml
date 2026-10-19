@@ -1,0 +1,127 @@
+﻿@page
+@model EnterpriseInventoryApi.Pages.WarehouseModel
+@inject JsonLocalizer L
+@{
+    ViewData["Title"] = "Panou de Inventar";
+}
+
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="app-wrapper">
+    @await Html.PartialAsync("~/Pages/Shared/_Sidebar.cshtml")
+
+    <div class="main-content">
+        <div class="mb-4">
+            <h1 class="h2 fw-bold text-dark mb-1">@L["WarehousesTitle"]</h1>
+            <p class="text-muted mb-0">@L["WarehousesSubtitle"]</p>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4 mb-4 p-3">
+            <form method="get" class="row g-3 align-items-center">
+                <div class="col-md-5">
+                    <label for="SelectedWarehouseId" class="form-label fw-bold text-secondary small">@L["FilterByWarehouse"]</label>
+                    <select name="SelectedWarehouseId" id="SelectedWarehouseId" class="form-select" onchange="this.form.submit()">
+                        <option value="">@L["AllWarehousesOption"]</option>
+                        @foreach (var warehouse in Model.Warehouses)
+                        {
+                            <option value="@warehouse.Id" selected="@(Model.SelectedWarehouseId == warehouse.Id)">
+                                @warehouse.Name
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <label for="SearchQuery" class="form-label fw-bold text-secondary small">@L["SearchProductOrSkuLabel"]</label>
+                    <div class="input-group">
+                        <input type="text" name="SearchQuery" id="SearchQuery" value="@Model.SearchQuery" class="form-control" placeholder="@L["SearchProductPlaceholder"]">
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <a href="/Warehouses" class="btn btn-outline-secondary w-100"><i class="bi bi-arrow-counterclockwise"></i> @L["ResetButton"]</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-header bg-white py-3 px-4 border-bottom border-light">
+                <h5 class="mb-0 fw-bold text-dark">@L["InventoryPerWarehouse"]</h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light text-uppercase fs-7 text-secondary">
+                        <tr>
+                            <th class="ps-4">@L["WarehouseColumn"]</th>
+                            <th>@L["ProductColumn"]</th>
+                            <th>SKU</th>
+                            <th>@L["ValueColumn"]</th>
+                            <th class="text-center">@L["StockQuantityColumn"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.ProductWarehouses.Any())
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center py-4 text-muted">@L["NoWarehouseStocksFound"]</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var item in Model.ProductWarehouses)
+                            {
+                                <tr>
+                                    <td class="ps-4 fw-bold text-dark">
+                                        <i class="bi bi-building me-1 text-primary"></i> @item.Warehouse?.Name
+                                    </td>
+                                    <td>@item.Product?.Name</td>
+                                    <td>
+                                        <span class="badge bg-light text-dark font-monospace border">@item.Product?.SKU</span>
+                                    </td>
+                                    <td>
+                                        @((item.StockQuantity * (item.Product?.UnitPrice ?? 0)).ToString("N0")) LEI
+                                    </td>
+                                    @if (item.StockQuantity <= 15)
+                                    {
+                                        <td class="text-center fw-bold text-danger">
+                                            @item.StockQuantity @L["UnitsSuffix"]
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-center fw-bold text-success">
+                                            @item.StockQuantity @L["UnitsSuffix"]
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @if (Model.TotalPages > 1)
+            {
+                <nav aria-label="Navigare pagini inventar" class="my-4">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                            <a class="page-link rounded-start-pill px-3" href="/Warehouses?CurrentPage=@(Model.CurrentPage - 1)&SearchQuery=@Model.SearchQuery&SelectedWarehouseId=@Model.SelectedWarehouseId&SortOrder=@Model.SortOrder">@L["PaginationPrevious"]</a>
+                        </li>
+
+                        @for (var i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                <a class="page-link" href="/Warehouses?CurrentPage=@i&SearchQuery=@Model.SearchQuery&SelectedWarehouseId=@Model.SelectedWarehouseId&SortOrder=@Model.SortOrder">@i</a>
+                            </li>
+                        }
+
+                        <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                            <a class="page-link rounded-end-pill px-3" href="/Warehouses?CurrentPage=@(Model.CurrentPage + 1)&SearchQuery=@Model.SearchQuery&SelectedWarehouseId=@Model.SelectedWarehouseId&SortOrder=@Model.SortOrder">@L["PaginationNext"]</a>
+                        </li>
+                    </ul>
+                </nav>
+            }
+        </div>
+    </div>
+</div>
