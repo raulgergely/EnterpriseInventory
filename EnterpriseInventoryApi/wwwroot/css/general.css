@@ -1,0 +1,63 @@
+﻿
+body {
+    background-color: #f8fafc;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #1e293b;
+}
+
+.stat-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #e2e8f0 !important;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    background-color: #f1f5f9 !important;
+    color: #475569 !important;
+    padding: 1rem 1.25rem;
+}
+
+.table td {
+    padding: 1rem 1.25rem;
+    color: #334155;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.card {
+    border: 1px solid #e2e8f0 !important;
+}
+
+.pagination .page-link {
+    background: var(--surface-card);
+    border: 1px solid var(--border-warm);
+    color: var(--text-main);
+    margin: 0 4px;
+    border-radius: 0.75rem !important;
+    padding: 0.6rem 1.1rem;
+    font-weight: 600;
+}
+
+.pagination .page-item.active .page-link {
+    background: var(--primary-bold);
+    border-color: var(--primary-bold);
+    color: white;
+    box-shadow: 0 4px 12px rgba(194, 65, 12, 0.3);
+}
+
+.pagination .page-link:hover {
+    background: var(--surface-subtle);
+    color: var(--text-main);
+}

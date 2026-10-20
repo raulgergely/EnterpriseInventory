@@ -16,14 +16,12 @@ namespace EnterpriseInventoryApi.Controllers
             _context = context;
         }
 
-        // GET: api/customers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
         {
             return await _context.Customers.ToListAsync();
         }
 
-        // POST: api/customers
         [HttpPost]
         public async Task<ActionResult<Customer>> CreateCustomer([FromBody] Customer customer)
         {

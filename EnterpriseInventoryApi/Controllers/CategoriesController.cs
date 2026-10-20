@@ -16,14 +16,12 @@ namespace EnterpriseInventoryApi.Controllers
             _context = context;
         }
 
-        // GET: api/categories
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
             return await _context.Categories.ToListAsync();
         }
 
-        // POST: api/categories
         [HttpPost]
         public async Task<ActionResult<Category>> CreateCategory([FromBody] Category category)
         {
@@ -36,7 +34,6 @@ namespace EnterpriseInventoryApi.Controllers
             }
             catch (Exception ex)
             {
-                // Asta ne va arăta exact eroarea venită din baza de date
                 var innerMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
                 return BadRequest(new { error = innerMessage });
             }

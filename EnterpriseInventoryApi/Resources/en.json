@@ -56,7 +56,7 @@
   "StockQuantityColumn": "Stock Quantity",
   "NoWarehouseStocksFound": "No stocks found for the selected filter.",
   "UnitsSuffix": "pcs.",
-  "WelcomeTitle": "Welcome to EnterpriseInv! 🚀",
+  "WelcomeTitle": "Welcome to EnterpriseInv!",
   "WelcomeSubtitle": "Here is a quick summary of system status and warehouse activity.",
   "TotalProductsCatalog": "Total Products in Catalog",
   "DatabaseConnection": "Database Connection",

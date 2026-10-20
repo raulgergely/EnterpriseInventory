@@ -109,7 +109,7 @@ namespace EnterpriseInventoryApi.Data
                 new Customer { Id = 22, CompanyName = "Metropolis Real Estate", Email = "contact@metropolis-re.ro", Address = "Bulevardul General Dragalina 9, Timișoara" }
             );
             modelBuilder.Entity<ProductWarehouse>().HasData(
-                // Produsul 1
+
                 new ProductWarehouse { ProductId = 1, WarehouseId = 1, StockQuantity = 0 },
                 new ProductWarehouse { ProductId = 1, WarehouseId = 2, StockQuantity = 250 },
                 new ProductWarehouse { ProductId = 1, WarehouseId = 3, StockQuantity = 112 },
@@ -119,7 +119,6 @@ namespace EnterpriseInventoryApi.Data
                 new ProductWarehouse { ProductId = 1, WarehouseId = 7, StockQuantity = 20 },
                 new ProductWarehouse { ProductId = 1, WarehouseId = 8, StockQuantity = 100 },
 
-                // Produsul 2
                 new ProductWarehouse { ProductId = 2, WarehouseId = 1, StockQuantity = 10 },
                 new ProductWarehouse { ProductId = 2, WarehouseId = 2, StockQuantity = 180 },
                 new ProductWarehouse { ProductId = 2, WarehouseId = 3, StockQuantity = 350 },
@@ -129,7 +128,6 @@ namespace EnterpriseInventoryApi.Data
                 new ProductWarehouse { ProductId = 2, WarehouseId = 7, StockQuantity = 10 },
                 new ProductWarehouse { ProductId = 2, WarehouseId = 8, StockQuantity = 50 },
 
-                // Produsul 3
                 new ProductWarehouse { ProductId = 3, WarehouseId = 1, StockQuantity = 40 },
                 new ProductWarehouse { ProductId = 3, WarehouseId = 2, StockQuantity = 35 },
                 new ProductWarehouse { ProductId = 3, WarehouseId = 3, StockQuantity = 90 },
@@ -139,7 +137,6 @@ namespace EnterpriseInventoryApi.Data
                 new ProductWarehouse { ProductId = 3, WarehouseId = 7, StockQuantity = 90 },
                 new ProductWarehouse { ProductId = 3, WarehouseId = 8, StockQuantity = 25 },
 
-                // Produsul 4
                 new ProductWarehouse { ProductId = 4, WarehouseId = 1, StockQuantity = 600 },
                 new ProductWarehouse { ProductId = 4, WarehouseId = 2, StockQuantity = 330 },
                 new ProductWarehouse { ProductId = 4, WarehouseId = 3, StockQuantity = 250 },
@@ -149,7 +146,6 @@ namespace EnterpriseInventoryApi.Data
                 new ProductWarehouse { ProductId = 4, WarehouseId = 7, StockQuantity = 140 },
                 new ProductWarehouse { ProductId = 4, WarehouseId = 8, StockQuantity = 500 },
 
-                // Produsul 5
                 new ProductWarehouse { ProductId = 5, WarehouseId = 1, StockQuantity = 20 },
                 new ProductWarehouse { ProductId = 5, WarehouseId = 2, StockQuantity = 30 },
                 new ProductWarehouse { ProductId = 5, WarehouseId = 3, StockQuantity = 50 },
@@ -159,7 +155,6 @@ namespace EnterpriseInventoryApi.Data
                 new ProductWarehouse { ProductId = 5, WarehouseId = 7, StockQuantity = 60 },
                 new ProductWarehouse { ProductId = 5, WarehouseId = 8, StockQuantity = 20 },
 
-                // Produsul 6
                 new ProductWarehouse { ProductId = 6, WarehouseId = 1, StockQuantity = 20 },
                 new ProductWarehouse { ProductId = 6, WarehouseId = 2, StockQuantity = 15 },
                 new ProductWarehouse { ProductId = 6, WarehouseId = 3, StockQuantity = 82 },
@@ -168,7 +163,6 @@ namespace EnterpriseInventoryApi.Data
                 new ProductWarehouse { ProductId = 6, WarehouseId = 7, StockQuantity = 40 },
                 new ProductWarehouse { ProductId = 6, WarehouseId = 8, StockQuantity = 70 },
 
-                // Produsul 7
                 new ProductWarehouse { ProductId = 7, WarehouseId = 1, StockQuantity = 200 },
                 new ProductWarehouse { ProductId = 7, WarehouseId = 2, StockQuantity = 120 },
                 new ProductWarehouse { ProductId = 7, WarehouseId = 3, StockQuantity = 85 },
@@ -178,7 +172,6 @@ namespace EnterpriseInventoryApi.Data
                 new ProductWarehouse { ProductId = 7, WarehouseId = 7, StockQuantity = 160 },
                 new ProductWarehouse { ProductId = 7, WarehouseId = 8, StockQuantity = 190 },
 
-                // Produsul 8
                 new ProductWarehouse { ProductId = 8, WarehouseId = 1, StockQuantity = 500 },
                 new ProductWarehouse { ProductId = 8, WarehouseId = 2, StockQuantity = 100 },
                 new ProductWarehouse { ProductId = 8, WarehouseId = 3, StockQuantity = 220 },

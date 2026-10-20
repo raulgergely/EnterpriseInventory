@@ -16,7 +16,6 @@ namespace EnterpriseInventoryApi.Controllers
             _context = context;
         }
 
-        // GET: api/warehouses
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Warehouse>>> GetWarehouses()
         {
@@ -33,7 +32,7 @@ namespace EnterpriseInventoryApi.Controllers
             
             return warehouses;
         }
-        // POST: api/warehouses
+       
         [HttpPost]
         public async Task<ActionResult<Warehouse>> CreateWarehouse([FromBody] Warehouse warehouse)
         {

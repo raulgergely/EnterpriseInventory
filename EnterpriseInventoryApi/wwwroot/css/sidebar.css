@@ -8,8 +8,10 @@ body {
     display: flex;
     min-height: 100vh;
 }
+text-brown {
+    color: #c2410c !important;
+}
 
-/* Stiluri pentru Sidebar */
 .sidebar {
     width: 280px;
     height: 100vh;
@@ -20,23 +22,22 @@ body {
     border-right: 1px solid #e2e8f0;
 }
 
-    .sidebar .nav-link {
-        font-weight: 500;
-        color: #475569;
-        transition: all 0.2s ease;
-    }
+.sidebar .nav-link {
+    font-weight: 500;
+    color: #475569;
+    transition: all 0.2s ease;
+}
 
-        .sidebar .nav-link:hover {
-            background-color: #f1f5f9;
-            color: #1e293b;
-        }
+.sidebar .nav-link:hover {
+    background-color: #f1f5f9;
+    color: #1e293b;
+}
 
-        .sidebar .nav-link.active {
-            background-color: #0d6efd !important;
-            color: #fff !important;
-        }
+.sidebar .nav-link.active {
+    background-color: #c2410c !important;
+    color: #fff !important;
+}
 
-/* Conținutul principal decalat la dreapta pentru a lăsa loc sidebar-ului */
 .main-content {
     margin-left: 280px;
     flex-grow: 1;
