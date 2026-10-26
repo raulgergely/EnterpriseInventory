@@ -1,5 +1,5 @@
 using EnterpriseInventoryApi.Data;
-using EnterpriseInventoryApi.Models;
+using EnterpriseInventoryApi.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;

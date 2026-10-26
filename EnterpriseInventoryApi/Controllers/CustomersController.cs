@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EnterpriseInventoryApi.Data;
-using EnterpriseInventoryApi.Models;
+using EnterpriseInventoryApi.Entity;
+using EnterpriseInventoryApi.DTO;
 
 namespace EnterpriseInventoryApi.Controllers
 {
@@ -17,18 +18,53 @@ namespace EnterpriseInventoryApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<CustomerDTO>>> GetCustomers()
         {
-            return await _context.Customers.ToListAsync();
+            var customers = await _context.Customers.Select(c => new CustomerDTO
+            {
+                Id = c.Id,
+                CompanyName = c.CompanyName,
+                Email = c.Email,
+                Address = c.Address
+            }).ToListAsync();
+
+            return Ok(customers);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CustomerDTO>> GetCustomersById(int id)
+        {
+            var customerResult = await _context.Customers.Where(c => c.Id == id)
+                .Select(c => new CustomerDTO
+                {
+                    Id = c.Id,
+                    CompanyName = c.CompanyName,
+                    Email = c.Email,
+                    Address = c.Address
+                })
+                .FirstOrDefaultAsync();
+            if (customerResult == null)
+            {
+                return NotFound();
+            }
+            return Ok(customerResult);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Customer>> CreateCustomer([FromBody] Customer customer)
+        public async Task<ActionResult<CustomerDTO>> CreateCustomer([FromBody] CustomerDTO customerDto)
         {
+            var customer = new Customer
+            {
+                CompanyName = customerDto.CompanyName,
+                Email = customerDto.Email,
+                Address = customerDto.Address
+            };
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetCustomers), new { id = customer.Id }, customer);
+            customerDto.Id = customer.Id;
+
+            return CreatedAtAction(nameof(GetCustomersById), new { id = customer.Id }, customer);
         }
     }
 }

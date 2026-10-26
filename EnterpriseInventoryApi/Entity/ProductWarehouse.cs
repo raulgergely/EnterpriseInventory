@@ -1,4 +1,4 @@
-﻿namespace EnterpriseInventoryApi.Models
+﻿namespace EnterpriseInventoryApi.Entity
 {
     public class ProductWarehouse
     {

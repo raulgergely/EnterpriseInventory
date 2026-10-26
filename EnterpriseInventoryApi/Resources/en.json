@@ -72,5 +72,16 @@
   "ApiVersion": "API Version:",
   "Environment": "Runtime Environment:",
   "Framework": "Framework:",
-  "AllServicesRunningNormal": "All services are running normally"
+  "AllServicesRunningNormal": "All services are running normally",
+  "OrdersTitle": "Orders Panel",
+  "OrdersSubtitle": "View and manage all customer orders efficiently.",
+  "OrdersListTitle": "Orders List",
+  "NewOrderButton": "New Order",
+  "OrderNumberColumn": "Order #",
+  "CustomerColumn": "Customer",
+  "DateColumn": "Date",
+  "StatusColumn": "Status",
+  "TotalValueColumn": "Total Value",
+  "ActionsColumn": "Actions",
+  "NoOrdersFound": "No orders found."
 }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using EnterpriseInventoryApi.Models;
+using EnterpriseInventoryApi.Entity;
 
 namespace EnterpriseInventoryApi.Data
 {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EnterpriseInventoryApi.Models
+namespace EnterpriseInventoryApi.Entity
 {
     public class Supplier
     {

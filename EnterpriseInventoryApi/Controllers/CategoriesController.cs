@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EnterpriseInventoryApi.Data;
-using EnterpriseInventoryApi.Models;
+using EnterpriseInventoryApi.Entity;
+using EnterpriseInventoryApi.DTO;
 
 namespace EnterpriseInventoryApi.Controllers
 {
@@ -17,26 +18,52 @@ namespace EnterpriseInventoryApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<CategoryDTO>>> GetCategories()
         {
-            return await _context.Categories.ToListAsync();
+            var categories = await _context.Categories
+                .Select(c => new CategoryDTO
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Description = c.Description
+                })
+                .ToListAsync();
+            return Ok(categories);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CategoryDTO>> GetCategoriesById(int id)
+        {
+            var category = await _context.Categories.Where(c => c.Id == id)
+                .Select(c => new CategoryDTO
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Description = c.Description
+                })
+                .FirstOrDefaultAsync();
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return Ok(category);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Category>> CreateCategory([FromBody] Category category)
+        public async Task<ActionResult<CategoryDTO>> CreateCategory([FromBody] CategoryDTO categoryDto)
         {
-            try
+            var category = new Category
             {
-                _context.Categories.Add(category);
-                await _context.SaveChangesAsync();
+                Name = categoryDto.Name,
+                Description = categoryDto.Description
+            };
 
-                return CreatedAtAction(nameof(GetCategories), new { id = category.Id }, category);
-            }
-            catch (Exception ex)
-            {
-                var innerMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-                return BadRequest(new { error = innerMessage });
-            }
+            _context.Categories.Add(category);
+            await _context.SaveChangesAsync();
+
+            categoryDto.Id = category.Id;
+
+            return CreatedAtAction(nameof(GetCategoriesById), new { id = category.Id }, categoryDto);
         }
     }
 }

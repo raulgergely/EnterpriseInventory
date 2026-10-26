@@ -1,0 +1,88 @@
+﻿@page
+@model EnterpriseInventoryApi.Pages.OrdersModel
+@inject JsonLocalizer L
+@{
+    ViewData["Title"] = "Panou de Comenzi";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/orders.css" asp-append-version="true" />
+}
+<div class="app-wrapper">
+    @await Html.PartialAsync("~/Pages/Shared/_Sidebar.cshtml")
+
+    <div class="main-content">
+        <div class="mb-4">
+            <h1 class="h2 fw-bold text-dark mb-1">@L["OrdersTitle"]</h1>
+            <p class="text-muted mb-0">@L["OrdersSubtitle"]</p>
+        </div>
+
+
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-header bg-white py-3 px-4 border-bottom border-light d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold text-dark">@L["OrdersListTitle"]</h5>
+                <a asp-page="/Orders/Create" class="btn btn-warm-primary btn-sm"><i class="bi bi-plus-lg me-1"></i> @L["NewOrderButton"]</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light text-uppercase fs-7 text-secondary">
+                        <tr>
+                            <th class="ps-4">@L["OrderNumberColumn"]</th>
+                            <th>@L["CustomerColumn"]</th>
+                            <th>@L["DateColumn"]</th>
+                            <th>@L["StatusColumn"]</th>
+                            <th>@L["TotalValueColumn"]</th>
+                            <th class="text-center">@L["ActionsColumn"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.Orders.Any())
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center py-4 text-muted">@L["NoOrdersFound"]</td>
+                            </tr>
+                        }
+                        else
+                        {
+                           
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @if (Model.TotalPages > 1)
+            {
+                <nav aria-label="Navigare pagini comenzi" class="my-4">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                            <a class="page-link rounded-start-pill px-3" 
+                               asp-page="/Orders" 
+                               asp-route-CurrentPage="@(Model.CurrentPage - 1)" 
+                               asp-route-SearchQuery="@Model.SearchQuery" 
+                               asp-route-SelectedStatus="@Model.SelectedStatus">@L["PaginationPrevious"]</a>
+                        </li>
+
+                        @for (var i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                <a class="page-link" 
+                                   asp-page="/Orders" 
+                                   asp-route-CurrentPage="@i" 
+                                   asp-route-SearchQuery="@Model.SearchQuery" 
+                                   asp-route-SelectedStatus="@Model.SelectedStatus">@i</a>
+                            </li>
+                        }
+
+                        <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                            <a class="page-link rounded-end-pill px-3" 
+                               asp-page="/Orders" 
+                               asp-route-CurrentPage="@(Model.CurrentPage + 1)" 
+                               asp-route-SearchQuery="@Model.SearchQuery" 
+                               asp-route-SelectedStatus="@Model.SelectedStatus">@L["PaginationNext"]</a>
+                        </li>
+                    </ul>
+                </nav>
+            }
+        </div>
+    </div>
+</div>

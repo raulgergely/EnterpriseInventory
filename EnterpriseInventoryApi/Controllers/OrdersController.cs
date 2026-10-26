@@ -1,11 +1,11 @@
 ﻿using EnterpriseInventoryApi.Data;
-using EnterpriseInventoryApi.Models;
+using EnterpriseInventoryApi.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EnterpriseInventoryApi.Controllers
 {
-    [Route("/api/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase
     {
@@ -31,7 +31,7 @@ namespace EnterpriseInventoryApi.Controllers
             return orderResult;
         }
         [HttpPost]
-        public async Task<ActionResult<Order>> createOrder([FromBody] Order order)
+        public async Task<ActionResult<Order>> CreateOrder([FromBody] Order order)
         {
 
             _context.Orders.Add(order);

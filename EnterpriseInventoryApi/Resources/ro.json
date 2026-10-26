@@ -72,5 +72,16 @@
   "ApiVersion": "Versiune API:",
   "Environment": "Mediu de Rulare:",
   "Framework": "Cadru (Framework):",
-  "AllServicesRunningNormal": "Toate serviciile funcționează normal"
+  "AllServicesRunningNormal": "Toate serviciile funcționează normal",
+  "OrdersTitle": "Panou de Comenzi",
+  "OrdersSubtitle": "Vizualizează și gestionează eficient toate comenzile clienților.",
+  "OrdersListTitle": "Lista Comenzilor",
+  "NewOrderButton": "Comandă Nouă",
+  "OrderNumberColumn": "Nr. Comandă",
+  "CustomerColumn": "Client",
+  "DateColumn": "Dată",
+  "StatusColumn": "Status",
+  "TotalValueColumn": "Valoare Totală",
+  "ActionsColumn": "Acțiuni",
+  "NoOrdersFound": "Nu au fost găsite comenzi."
 }
