@@ -9,12 +9,10 @@ namespace EnterpriseInventoryApi.Pages
     public class CustomersModel : PageModel
     {
         private readonly AppDbContext _context;
-        private readonly ILogger<CustomersModel> _logger;
 
-        public CustomersModel(AppDbContext context, ILogger<CustomersModel> logger)
+        public CustomersModel(AppDbContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
         public IList<Customer> Customers { get; set; } = default!;

@@ -64,7 +64,7 @@ namespace EnterpriseInventoryApi.Controllers
 
             customerDto.Id = customer.Id;
 
-            return CreatedAtAction(nameof(GetCustomersById), new { id = customer.Id }, customer);
+            return CreatedAtAction(nameof(GetCustomersById), new { id = customer.Id }, customerDto);
         }
     }
 }

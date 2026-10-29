@@ -32,7 +32,7 @@ namespace EnterpriseInventoryApi.Pages
         {
             int pageSize = 10;
 
-            IQueryable<Order> query = _context.Orders
+            var query = _context.Orders
                 .Include(o => o.Customer)
                 .AsQueryable();
 

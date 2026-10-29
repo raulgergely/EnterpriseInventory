@@ -9,12 +9,10 @@ namespace EnterpriseInventoryApi.Pages
     public class WarehouseModel : PageModel
     {
         private readonly AppDbContext _context; 
-        private readonly ILogger<WarehouseModel> _logger;
 
-        public WarehouseModel(AppDbContext context,ILogger<WarehouseModel> logger)
+        public WarehouseModel(AppDbContext context)
         {
             _context = context;
-            _logger = logger;
         }
         public IList<ProductWarehouse> ProductWarehouses { get; set; } = default!;
 

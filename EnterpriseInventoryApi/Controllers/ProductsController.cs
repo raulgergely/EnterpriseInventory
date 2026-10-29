@@ -38,7 +38,7 @@ namespace EnterpriseInventoryApi.Controllers
             return Ok(products);
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProductsById(int id)
+        public async Task<ActionResult<ProductDTO>> GetProductsById(int id)
         {
             var product = await _context.Products
                 .Include(p => p.Category)
@@ -117,7 +117,7 @@ namespace EnterpriseInventoryApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products.FirstAsync(p => p.Id == id);
             if (product == null)
             {
                 return NotFound();
