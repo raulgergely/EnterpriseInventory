@@ -45,6 +45,7 @@ namespace EnterpriseInventoryApi.Pages
 
             query = query.Where(pw => pw.StockQuantity > 0);
 
+            //selected warehouse
             if (SelectedWarehouseId.HasValue && SelectedWarehouseId.Value > 0)
             {
                 query = query.Where(pw => pw.WarehouseId == SelectedWarehouseId.Value);
